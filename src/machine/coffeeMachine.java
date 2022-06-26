@@ -5,12 +5,6 @@ import java.util.Scanner;
 public class coffeeMachine {
     static Scanner scanner = new Scanner(System.in);  // Create a Scanner object
 
-    static Integer storedWater = 400;
-    static Integer storedMilk = 540;
-    static Integer storedBeans = 120;
-    static Integer storedCups = 9;
-    static Integer storedMoney = 550;
-
     public static void main(String[] args) {
         boolean machinePowerStatus = true;
         coffeeMaker coffeeMaker = new coffeeMaker();
@@ -25,10 +19,10 @@ public class coffeeMachine {
                     fillResource();
                     break;
                 case "take":
-                    machine.storedResourceManagement.takeMoney();
+                    storedResourceManagement.takeMoney();
                     break;
                 case "remaining":
-                    machine.storedResourceManagement.printStorageStatus();
+                    storedResourceManagement.printStorageStatus();
                     break;
                 case "exit":
                     machinePowerStatus = false;
@@ -53,11 +47,11 @@ public class coffeeMachine {
         System.out.println("Write how many disposable cups of coffee you want to add:");
         int addCups = scanner.nextInt();
 
-        machine.storedResourceManagement.updateStoredResource(addWater, addMilk, addBeans, addCups, 0);
+        storedResourceManagement.updateStoredResource(addWater, addMilk, addBeans, addCups, 0);
     }
 
     public static void outputEmptyLine() {
-        System.out.println("");
+        System.out.println(" ");
     }
 
 }
