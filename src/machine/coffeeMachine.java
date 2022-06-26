@@ -28,11 +28,11 @@ public class coffeeMachine {
                     nextAction = actionStatusCase.SELECT_ACTION;
                     break;
                 case TAKE_MONEY:
-                    storedResourceManagement.takeMoney();
+                    storedResource.takeMoney();
                     nextAction = actionStatusCase.SELECT_ACTION;
                     break;
                 case CHECK_REMAINING_RESOURCE:
-                    storedResourceManagement.printStorageStatus();
+                    storedResource.printStorageStatus();
                     nextAction = actionStatusCase.SELECT_ACTION;
                     break;
                 case EXIT:
@@ -74,24 +74,24 @@ public class coffeeMachine {
         System.out.println("Write how many disposable cups of coffee you want to add:");
         int addCups = scanner.nextInt();
         String emptyValue = scanner.nextLine();
-        storedResourceManagement.updateStoredResource(addWater, addMilk, addBeans, addCups, 0);
+        storedResource.updateStoredResource(addWater, addMilk, addBeans, addCups, 0);
     }
 
     public static void outputEmptyLine() {
-        System.out.println(" ");
+        System.out.println("");
     }
 
 }
 
 
-class storedResourceManagement {
+class storedResource {
     public static Integer water = 400;
     public static Integer milk = 540;
     public static Integer beans = 120;
     public static Integer cups = 9;
     public static Integer money = 550;
 
-    public storedResourceManagement() {
+    public storedResource() {
     }
 
     public static int getStorageStatus(String Type) {
@@ -113,24 +113,24 @@ class storedResourceManagement {
 
     public static void printStorageStatus() {
         System.out.println("The coffee machine has:");
-        System.out.println(storedResourceManagement.water + " ml of water");
-        System.out.println(storedResourceManagement.milk + " ml of milk");
-        System.out.println(storedResourceManagement.beans + " g of coffee beans");
-        System.out.println(storedResourceManagement.cups + " disposable cups");
-        System.out.println("$" + storedResourceManagement.money + " of money");
+        System.out.println(storedResource.water + " ml of water");
+        System.out.println(storedResource.milk + " ml of milk");
+        System.out.println(storedResource.beans + " g of coffee beans");
+        System.out.println(storedResource.cups + " disposable cups");
+        System.out.println("$" + storedResource.money + " of money");
     }
 
     public static void updateStoredResource(int water, int milk, int beans, int cups, int money) {
-        storedResourceManagement.water += water;
-        storedResourceManagement.milk += milk;
-        storedResourceManagement.beans += beans;
-        storedResourceManagement.cups += cups;
-        storedResourceManagement.money += money;
+        storedResource.water += water;
+        storedResource.milk += milk;
+        storedResource.beans += beans;
+        storedResource.cups += cups;
+        storedResource.money += money;
     }
 
     public static void takeMoney() {
-        System.out.println("I gave you $" + storedResourceManagement.money);
-        storedResourceManagement.money = 0;
+        System.out.println("I gave you $" + storedResource.money);
+        storedResource.money = 0;
     }
 
 }
