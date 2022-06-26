@@ -1,40 +1,67 @@
 package machine;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class coffeeMachine {
     static Scanner scanner = new Scanner(System.in);  // Create a Scanner object
 
+    enum actionStatusCase {
+        SELECT_ACTION, BUY_COFFEE, FILL_RESOURCE, TAKE_MONEY, CHECK_REMAINING_RESOURCE, EXIT
+    }
+
     public static void main(String[] args) {
         boolean machinePowerStatus = true;
         coffeeMaker coffeeMaker = new coffeeMaker();
+        actionStatusCase nextAction = actionStatusCase.SELECT_ACTION;
         while (machinePowerStatus) {
-            String actionValue = getUserAction();
-            outputEmptyLine();
-            switch (actionValue) {
-                case "buy":
+            switch (nextAction) {
+                case SELECT_ACTION:
+                    nextAction = getNextActionByUserInput();
+                    break;
+                case BUY_COFFEE:
                     coffeeMaker.makeCoffee();
+                    nextAction = actionStatusCase.SELECT_ACTION;
                     break;
-                case "fill":
+                case FILL_RESOURCE:
                     fillResource();
+                    nextAction = actionStatusCase.SELECT_ACTION;
                     break;
-                case "take":
+                case TAKE_MONEY:
                     storedResourceManagement.takeMoney();
+                    nextAction = actionStatusCase.SELECT_ACTION;
                     break;
-                case "remaining":
+                case CHECK_REMAINING_RESOURCE:
                     storedResourceManagement.printStorageStatus();
+                    nextAction = actionStatusCase.SELECT_ACTION;
                     break;
-                case "exit":
+                case EXIT:
                     machinePowerStatus = false;
+                    break;
+                default:
                     break;
             }
             outputEmptyLine();
         }
     }
 
-    public static String getUserAction() {
+    public static actionStatusCase getNextActionByUserInput() {
         System.out.println("Write action (buy, fill, take, remaining, exit):");
-        return scanner.nextLine();
+        String userAction = scanner.nextLine();
+        switch (userAction) {
+            case "buy":
+                return actionStatusCase.BUY_COFFEE;
+            case "fill":
+                return actionStatusCase.FILL_RESOURCE;
+            case "take":
+                return actionStatusCase.TAKE_MONEY;
+            case "remaining":
+                return actionStatusCase.CHECK_REMAINING_RESOURCE;
+            case "exit":
+                return actionStatusCase.EXIT;
+            default:
+                return actionStatusCase.SELECT_ACTION;
+        }
     }
 
     public static void fillResource() {
@@ -46,7 +73,7 @@ public class coffeeMachine {
         int addBeans = scanner.nextInt();
         System.out.println("Write how many disposable cups of coffee you want to add:");
         int addCups = scanner.nextInt();
-
+        String emptyValue = scanner.nextLine();
         storedResourceManagement.updateStoredResource(addWater, addMilk, addBeans, addCups, 0);
     }
 
@@ -54,36 +81,6 @@ public class coffeeMachine {
         System.out.println(" ");
     }
 
-}
-
-class getCoffeeRequiredResource {
-    int water = 0;
-    int milk = 0;
-    int bean = 0;
-    int money = 0;
-
-    public getCoffeeRequiredResource(String CoffeeType) {
-        switch (CoffeeType) {
-            case "1": //espresso
-                this.water = 250;
-                this.milk = 0;
-                this.bean = 16;
-                this.money = 4;
-                break;
-            case "2": //latte
-                this.water = 350;
-                this.milk = 75;
-                this.bean = 20;
-                this.money = 7;
-                break;
-            case "3": //cappuccino
-                this.water = 200;
-                this.milk = 100;
-                this.bean = 12;
-                this.money = 6;
-                break;
-        }
-    }
 }
 
 
